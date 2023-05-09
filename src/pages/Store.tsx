@@ -9,7 +9,7 @@ import { StoreItem } from "../components/StoreItem"
 
 export function Store() {
 
-const storeItems = getStoreItems();
+// const storeItems = getStoreItems();
 
   return (
     <>
