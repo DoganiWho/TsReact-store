@@ -1,4 +1,4 @@
-interface StoreItemProps {
+type StoreItemProps = {
   id: number,
   name: string,
   price: number,
@@ -6,5 +6,9 @@ interface StoreItemProps {
 };
 
 export function StoreItem({id, name, price, imageUrl}: StoreItemProps) {
-  
+  return(
+    <>
+      <h3>Store Item</h3>
+    </>
+  );
 }

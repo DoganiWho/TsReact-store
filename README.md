@@ -1,1 +1,1 @@
-## Fake Store app with React + TypeScript 
+## Fake store application built using Vite with React + TypeScript
