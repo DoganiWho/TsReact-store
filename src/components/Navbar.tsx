@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 export function Navbar() {
+  const { openCart, cartQty } = useShoppingCart()
   return (
     <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">
       <Container>
@@ -12,14 +13,15 @@ export function Navbar() {
           <Nav.Link to="/store" as={NavLink}>Store</Nav.Link>
           <Nav.Link to="/about" as={NavLink}>About</Nav.Link>
         </Nav>
-        <Button 
+        {cartQty > 0 && (<Button 
+          onClick={openCart}
           style={{width: "3rem", height: "3rem", position: "relative"}} 
           variant="outline-primary" 
           className="rounded-circle"
         >
           <FontAwesomeIcon icon={faCartShopping} className="fa-lg"/>
-          <div className="rounded-circle bg-danger d-flex justify-content-center align-items-center" style={{color: "white", width: "1.5rem", height: "1.5rem", position: "absolute", bottom: 0, right: 0, transform: "translate(25%, 25%)"}}>3</div>
-        </Button>
+          <div className="rounded-circle bg-danger d-flex justify-content-center align-items-center" style={{color: "white", width: "1.5rem", height: "1.5rem", position: "absolute", bottom: 0, right: 0, transform: "translate(25%, 25%)"}}>{cartQty}</div>
+        </Button>)}
       </Container>
     </NavbarBs>
   )
