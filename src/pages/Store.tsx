@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
+import { getItems } from "../data/items";
 import axios from 'axios';
 
 export function Store() {  
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState(null)
-  const filter = '?limit=5'
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [query, setQuery] = useState('?limit=5');
         
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://fakestoreapi.com/products${filter}`)
+    getItems(query)
     .then(res => setData(res.data))
     .catch(err => console.error(err))
     .finally(() => setLoading(false))
@@ -24,20 +25,8 @@ export function Store() {
       {!!data && data.length > 0 ? data.map(item => {
         return (
           <Col key={item.id}>
-            <StoreItem {...item} />
-            <div 
-              className="bg-white" 
-              style={{
-                border: "1px solid",
-                padding: ".5rem", 
-                width: "400px"
-              }}
-            >
-              <p>{item.title}</p>
-              <img src={item.image} width={100}/>
-              <p>Price: ${item.price}</p>
-            </div>
-            {/* {JSON.stringify({item})} */}
+            {/* <StoreItem {...item} /> */}
+            {JSON.stringify({item})}
           </Col>
         );
       }):(<p>API did not provide any product, try again.</p>)
