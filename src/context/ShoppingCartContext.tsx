@@ -31,9 +31,7 @@ export function useShoppingCart() {
 export function ShoppingCartProvider( { children }:ShoppingCartProviderProps ) {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>(
-    "shopping-cart",
-    []);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const cartQty = cartItems.reduce(
     (quantity, item) => item.quantity + quantity, 0

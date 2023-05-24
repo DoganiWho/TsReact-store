@@ -4,12 +4,12 @@ import { Home } from "./pages/Home";
 import { Store } from "./pages/Store";
 import { About } from "./pages/About";
 import { Navbar } from "./components/Navbar";
-// import { ShoppingCartProvider } from "./context/ShoppingCartContext";
+import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 
 export default function App() {
   return (
     <>
-    {/*<ShoppingCartProvider>*/}
+    <ShoppingCartProvider>
       <Navbar />
       <Container className="mb-4">
         <Routes>
@@ -18,7 +18,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
         </Routes>
       </Container>
-    {/* </ShoppingCartProvider> */}
+    </ShoppingCartProvider>
     </>
   );
 }

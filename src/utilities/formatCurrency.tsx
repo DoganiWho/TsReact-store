@@ -5,5 +5,5 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
 
 
 export function formatCurrency(number: number) {
-  return CURRENCU_FORMATTER.format(number)
+  return CURRENCY_FORMATTER.format(number)
 }
