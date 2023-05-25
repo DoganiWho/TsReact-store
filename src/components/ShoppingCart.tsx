@@ -1,14 +1,33 @@
+import { useState, useEffect } from "react";
 import { Offcanvas, Stack } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import { CartItem } from "./CartItem";
+import axios from "axios";
 
 type ShoppingCartProps = {
   isOpen: boolean
 }
 
+type IProduct = {
+  id: number,
+  title: string,
+  price: number,
+  description: string,
+  category: string,
+  image: string,
+}
+
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const { closeCart, cartItems } = useShoppingCart()
+  const [storeItems, setStoreItems] = useState<IProduct[]>();
+
+  useEffect(() => {
+     axios.get("https://fakestoreapi.com/products")
+      .then(res => setStoreItems(res.data))
+      .catch(err => console.error(err))
+  }, [])
+  
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
       <Offcanvas.Header closeButton>
@@ -26,7 +45,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             Total{" "}
             {formatCurrency(
               cartItems.reduce((total, cartItem) => {
-                const item = storeItems.find(i => i.id === cartItem.id)
+                const item = storeItems?.find(i => i.id === cartItem.id)
                 return total + (item?.price || 0) * cartItem.quantity
               }, 0)
             )}

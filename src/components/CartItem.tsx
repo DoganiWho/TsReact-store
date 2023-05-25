@@ -2,19 +2,35 @@ import { useState, useEffect } from "react"
 import { Button, Stack } from "react-bootstrap"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { formatCurrency } from "../utilities/formatCurrency"
-
+import axios from "axios"
 
 type CartItemProps = {
   id: number
   quantity: number
 }
 
-export function CartItem({ id, quantity }: CartItemProps) {
-  
-  const { removeFromCart } = useShoppingCart()
-  const item = storeItems.find(i => i.id === id)
-  if (item == null) return null
+type IProduct = {
+  id: number,
+  title: string,
+  price: number,
+  description: string,
+  category: string,
+  image: string,
+}
 
+export function CartItem({ id, quantity }: CartItemProps) {
+  const { removeFromCart } = useShoppingCart()
+
+  const [storeItems, setStoreItems] = useState<IProduct[]>();
+
+  useEffect(() => {
+     axios.get("https://fakestoreapi.com/products")
+      .then(res => setStoreItems(res.data))
+      .catch(err => console.error(err))
+  }, [])
+
+  const item = storeItems?.find(i => i.id === id)
+  if (item == null) return null
 
   return (
     <Stack direction="horizontal" gap={2} className="d-flex align-items-center">
