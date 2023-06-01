@@ -2,20 +2,12 @@ import { useState, useEffect } from "react"
 import { Button, Stack } from "react-bootstrap"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { formatCurrency } from "../utilities/formatCurrency"
-import axios from "axios"
+import { fetchStoreItems, IProduct } from "../data/api";
+// import axios from "axios"
 
 type CartItemProps = {
   id: number
   quantity: number
-}
-
-type IProduct = {
-  id: number,
-  title: string,
-  price: number,
-  description: string,
-  category: string,
-  image: string,
 }
 
 export function CartItem({ id, quantity }: CartItemProps) {
@@ -24,9 +16,9 @@ export function CartItem({ id, quantity }: CartItemProps) {
   const [storeItems, setStoreItems] = useState<IProduct[]>();
 
   useEffect(() => {
-     axios.get("https://fakestoreapi.com/products")
-      .then(res => setStoreItems(res.data))
-      .catch(err => console.error(err))
+     fetchStoreItems()
+      .then(data => setStoreItems(data))
+      .catch(err => console.error(err));
   }, [])
 
   const item = storeItems?.find(i => i.id === id)

@@ -1,10 +1,12 @@
 import { Container, Button, Nav, Navbar as NavbarBs} from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useTheme } from "../context/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 export function Navbar() {
+  const {darkMode, setDarkMode} = useTheme()
   const {openCart, cartQty} = useShoppingCart()
   return (
     <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">

@@ -3,19 +3,11 @@ import { Offcanvas, Stack } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import { CartItem } from "./CartItem";
-import axios from "axios";
+import { fetchStoreItems, IProduct } from "../data/api";
+// import axios from "axios";
 
 type ShoppingCartProps = {
   isOpen: boolean
-}
-
-type IProduct = {
-  id: number,
-  title: string,
-  price: number,
-  description: string,
-  category: string,
-  image: string,
 }
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
@@ -23,9 +15,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const [storeItems, setStoreItems] = useState<IProduct[]>();
 
   useEffect(() => {
-     axios.get("https://fakestoreapi.com/products")
-      .then(res => setStoreItems(res.data))
-      .catch(err => console.error(err))
+     fetchStoreItems()
+      .then(data => setStoreItems(data))
+      .catch(err => console.error(err));
   }, [])
   
   return (
